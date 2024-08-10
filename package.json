@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "digital-twin-atlas",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "Global Atlas of Digital Twins",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Realtime Urbanism Lab",
   "dependencies": {
     "dotenv": "^16.4.5",
     "gatsby": "^5.13.5",
@@ -38,9 +38,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    "url": "https://github.com/realtimeurbanismlab/digital-twin-atlas" 
   },
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
-  }
+    "url": "https://github.com/realtimeurbanismlab/digital-twin-atlas/issues"
+  },
+  "homepage": "https://realtimeurbanismlab.github.io/digital-twin-atlas/"
 }
