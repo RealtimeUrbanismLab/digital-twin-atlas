@@ -1,141 +1,123 @@
 # Digital Twin Atlas
 
 ## Overview
-
-The **Digital Twin Atlas** is an interactive map-based project showcasing various digital twin case studies from around the world. The application is built using [Gatsby](https://www.gatsbyjs.com/), [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/api/), and React. Each case study is represented as a marker on the map, with detailed information available through a popup and a dedicated case study page.
+Digital Twin Atlas is a project designed to map and showcase digital twins across the globe. This application is built with Gatsby and Mapbox GL, allowing users to explore various case studies of digital twin projects through an interactive map interface.
 
 ## Features
+- **Interactive Map**: Browse and explore global digital twin projects using a Mapbox-powered map.
+- **Case Studies**: Detailed information on each digital twin project, accessible through map markers and popups.
+- **Responsive Design**: The application is designed to work across devices, ensuring a consistent experience.
 
-- **Interactive Map**: Explore digital twin case studies on an interactive Mapbox-powered map.
-- **Responsive Design**: The application is fully responsive, providing a seamless experience across devices.
-- **Marker Highlighting**: Click on a marker to highlight it and view detailed information in a popup.
-- **Case Study Pages**: Each marker links to a detailed page with further information about the digital twin project.
+## Prerequisites
+- Node.js (LTS version recommended)
+- npm or yarn
 
-## Project Structure
-
-```
-├── src
-│   ├── components
-│   │   ├── HamburgerMenu.js
-│   │   ├── Map.js
-│   ├── data
-│   │   └── caseStudies.js
-│   ├── images
-│   │   ├── marker-icon.png
-│   │   ├── marker-icon-selected.png
-│   ├── pages
-│   │   ├── index.js
-│   ├── styles
-│   │   ├── HamburgerMenu.css
-│   │   └── global.css
-│   ├── templates
-│   │   └── case-study.js
-├── public
-├── gatsby-browser.js
-├── gatsby-config.js
-├── gatsby-node.js
-├── package.json
-├── README.md
-```
-
-### Key Files and Directories
-
-- **src/components**: Contains the main React components (`HamburgerMenu.js`, `Map.js`) used throughout the project.
-- **src/data**: Houses the `caseStudies.js` file, which contains all the case study data.
-- **src/images**: Stores images for markers and other UI elements.
-- **src/pages**: Includes the main pages (`index.js`) for the application.
-- **src/templates**: Contains the template file (`case-study.js`) for dynamically generating case study pages.
-- **src/styles**: Contains global styles (`global.css`) and specific component styles (`HamburgerMenu.css`).
-
-## Installation and Setup
-
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) and npm (Node Package Manager)
-- [Gatsby CLI](https://www.gatsbyjs.com/docs/reference/gatsby-cli/)
-
-### Installation
+## Installation
 
 1. Clone the repository:
+    ```bash
+    git clone https://github.com/YourGitHubUsername/digital-twin-atlas.git
+    ```
 
-   ```sh
-   git clone https://github.com/yourusername/digital-twin-atlas.git
-   cd digital-twin-atlas
-   ```
+2. Navigate to the project directory:
+    ```bash
+    cd digital-twin-atlas
+    ```
 
-2. Install dependencies:
+3. Install the dependencies:
+    ```bash
+    npm install
+    ```
+    or
+    ```bash
+    yarn install
+    ```
 
-   ```sh
-   npm install
-   ```
+## Development
 
-### Running the Development Server
+To start a development server with hot-reloading:
 
-To start the development server and view the project locally:
-
-```sh
-gatsby develop
+```bash
+npm run develop
 ```
 
-The development server will be available at `http://localhost:8000`.
+### Running with Path Prefix Locally
 
-### Building for Production
+If you need to test the site with the path prefix (for example, `/digital-twin-atlas/`), you can do so by running:
 
-To build the project for production:
-
-```sh
-gatsby build
+```bash
+npm run build -- --prefix-paths
+npm run serve -- --prefix-paths
 ```
 
-The static files will be generated in the `public` directory.
+This will serve your built site with the correct prefix applied, allowing you to test it locally as it would appear on GitHub Pages.
 
-### Deploying the Project
+## Deployment
 
-You can deploy the `public` directory to any static site hosting service, such as [GitHub Pages](https://pages.github.com/), [Netlify](https://www.netlify.com/), or [Vercel](https://vercel.com/).
-
-## Adding/Modifying Case Studies
-
-### Data Structure
-
-The case studies are stored in the `src/data/caseStudies.js` file. Each case study is an object in the array, with the following structure:
+This project is designed to be deployed to GitHub Pages. Before deploying, make sure your `gatsby-config.js` has the correct `pathPrefix`:
 
 ```javascript
-const caseStudies = [
-  {
-    id: '1',
-    name: 'Digital Twin of Vienna',
-    location: 'Vienna',
-    country: 'Austria',
-    shortList: 'Yes',
-    lat: 48.20263,
-    lng: 16.36842,
-    shortDescription: 'This is a brief description of Case Study 1, Digital Twin of Vienna.',
-    description: 'Full description of Digital Twin of Vienna.',
-    imagePath: '/images/case-study-1.jpg',
+module.exports = {
+  pathPrefix: "/digital-twin-atlas",
+  siteMetadata: {
+    // Your site metadata here
   },
-  // More case studies...
-];
+  // other configurations...
+};
 ```
 
-### Adding a New Case Study
+To deploy:
 
-1. **Add Case Study Data**: Open the `caseStudies.js` file and add a new object to the array following the structure above.
-2. **Add Case Study Image**: Place the corresponding image in the `src/images` directory.
-3. **Rebuild and Deploy**: After adding the new case study, rebuild the project with `gatsby build` and deploy the updated `public` directory.
+```bash
+npm run deploy
+```
+
+This will build the project with the necessary path prefix and push the contents of the `public` directory to the `gh-pages` branch of your repository.
+
+## Usage
+
+### Interactive Map
+- Click on a marker to view information about the corresponding digital twin project.
+- The marker will change to a highlighted state when selected.
+- The popup provides a brief overview and a link to a detailed case study.
+
+### Case Studies
+- Each case study is a dedicated page with detailed information about the digital twin project, including location, description, and images.
 
 ## Extending the Project
 
-### Customizing Styles
+### Adding New Case Studies
+To add a new case study:
 
-- **Global Styles**: Modify `src/styles/global.css` to change global styles across the application.
-- **Component-Specific Styles**: Modify the specific CSS files, such as `HamburgerMenu.css`, to adjust individual components.
+1. Add a new entry in the `src/data/caseStudies.js` file with the relevant details (name, location, description, etc.).
+2. The map and site will automatically incorporate this new case study.
 
-### Customizing Map
+### Customizing the Map
+You can customize the map style by modifying the Mapbox style URL in the `Map.js` component:
 
-- **Map Style**: You can update the Mapbox style URL in the `Map.js` component.
-- **Markers**: Replace the marker icons in `src/images` with your preferred designs.
+```javascript
+const initializeMap = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/realtimelab/clznlra4y00a001qgan7xdk3p', // Update this line with your style URL
+  center: [0, 20],
+  zoom: 2,
+  bearing: 0,
+  pitch: 0,
+});
+```
 
-## Known Issues and Troubleshooting
+## Troubleshooting
 
-- **Mapbox Issues**: If the map isn't loading correctly, check the Mapbox access token in `Map.js`.
-- **Marker Highlighting**: If markers aren't behaving as expected, ensure that the correct event listeners and state updates are in place.
+### Issues with Path Prefixes
+If you encounter issues with paths not resolving correctly after deployment:
+
+1. Ensure you have set the `pathPrefix` correctly in `gatsby-config.js`.
+2. Use Gatsby's `Link` component for internal links, as it automatically handles path prefixes.
+3. Test the site locally using `gatsby serve --prefix-paths` to ensure the prefix is applied correctly.
+
+### Common Commands
+
+- **Start Development Server**: `npm run develop`
+- **Build for Production**: `npm run build`
+- **Serve Production Build Locally**: `npm run serve`
+- **Deploy to GitHub Pages**: `npm run deploy`
