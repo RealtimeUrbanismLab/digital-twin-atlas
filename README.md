@@ -1,99 +1,141 @@
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
-<p align="center">
-  <a href="https://www.gatsbyjs.com">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby's default starter
-</h1>
+# Digital Twin Atlas
 
-Kick off your project with this default boilerplate. This starter ships with the main Gatsby configuration files you might need to get up and running blazing fast with the blazing fast app generator for React.
+## Overview
 
-_Have another more specific idea? You may want to check out our vibrant collection of [official and community-created starters](https://www.gatsbyjs.com/docs/gatsby-starters/)._
+The **Digital Twin Atlas** is an interactive map-based project showcasing various digital twin case studies from around the world. The application is built using [Gatsby](https://www.gatsbyjs.com/), [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/api/), and React. Each case study is represented as a marker on the map, with detailed information available through a popup and a dedicated case study page.
 
-## 🚀 Quick start
+## Features
 
-1.  **Create a Gatsby site.**
+- **Interactive Map**: Explore digital twin case studies on an interactive Mapbox-powered map.
+- **Responsive Design**: The application is fully responsive, providing a seamless experience across devices.
+- **Marker Highlighting**: Click on a marker to highlight it and view detailed information in a popup.
+- **Case Study Pages**: Each marker links to a detailed page with further information about the digital twin project.
 
-    Use the Gatsby CLI ([install instructions](https://www.gatsbyjs.com/docs/tutorial/getting-started/part-0/#gatsby-cli)) to create a new site, specifying the default starter.
+## Project Structure
 
-    ```shell
-    # create a new Gatsby site using the default starter
-    gatsby new my-default-starter https://github.com/gatsbyjs/gatsby-starter-default
-    ```
+```
+├── src
+│   ├── components
+│   │   ├── HamburgerMenu.js
+│   │   ├── Map.js
+│   ├── data
+│   │   └── caseStudies.js
+│   ├── images
+│   │   ├── marker-icon.png
+│   │   ├── marker-icon-selected.png
+│   ├── pages
+│   │   ├── index.js
+│   ├── styles
+│   │   ├── HamburgerMenu.css
+│   │   └── global.css
+│   ├── templates
+│   │   └── case-study.js
+├── public
+├── gatsby-browser.js
+├── gatsby-config.js
+├── gatsby-node.js
+├── package.json
+├── README.md
+```
 
-1.  **Start developing.**
+### Key Files and Directories
 
-    Navigate into your new site’s directory and start it up.
+- **src/components**: Contains the main React components (`HamburgerMenu.js`, `Map.js`) used throughout the project.
+- **src/data**: Houses the `caseStudies.js` file, which contains all the case study data.
+- **src/images**: Stores images for markers and other UI elements.
+- **src/pages**: Includes the main pages (`index.js`) for the application.
+- **src/templates**: Contains the template file (`case-study.js`) for dynamically generating case study pages.
+- **src/styles**: Contains global styles (`global.css`) and specific component styles (`HamburgerMenu.css`).
 
-    ```shell
-    cd my-default-starter/
-    gatsby develop
-    ```
+## Installation and Setup
 
-1.  **Open the source code and start editing!**
+### Prerequisites
 
-    Your site is now running at `http://localhost:8000`!
+- [Node.js](https://nodejs.org/) and npm (Node Package Manager)
+- [Gatsby CLI](https://www.gatsbyjs.com/docs/reference/gatsby-cli/)
 
-    Note: You'll also see a second link: `http://localhost:8000/___graphql`. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby Tutorial](https://www.gatsbyjs.com/docs/tutorial/getting-started/part-4/#use-graphiql-to-explore-the-data-layer-and-write-graphql-queries).
+### Installation
 
-    Open the `my-default-starter` directory in your code editor of choice and edit `src/pages/index.js`. Save your changes and the browser will update in real time!
+1. Clone the repository:
 
-## 🚀 Quick start (Netlify)
+   ```sh
+   git clone https://github.com/yourusername/digital-twin-atlas.git
+   cd digital-twin-atlas
+   ```
 
-Deploy this starter with one click on [Netlify](https://app.netlify.com/signup):
+2. Install dependencies:
 
-[<img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" />](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-default)
+   ```sh
+   npm install
+   ```
 
-## 🧐 What's inside?
+### Running the Development Server
 
-A quick look at the top-level files and directories you'll see in a typical Gatsby project.
+To start the development server and view the project locally:
 
-    .
-    ├── node_modules
-    ├── src
-    ├── .gitignore
-    ├── gatsby-browser.js
-    ├── gatsby-config.js
-    ├── gatsby-node.js
-    ├── gatsby-ssr.js
-    ├── LICENSE
-    ├── package.json
-    └── README.md
+```sh
+gatsby develop
+```
 
-1.  **`/node_modules`**: This directory contains all of the modules of code that your project depends on (npm packages) are automatically installed.
+The development server will be available at `http://localhost:8000`.
 
-1.  **`/src`**: This directory will contain all of the code related to what you will see on the front-end of your site (what you see in the browser) such as your site header or a page template. `src` is a convention for “source code”.
+### Building for Production
 
-1.  **`.gitignore`**: This file tells git which files it should not track / not maintain a version history for.
+To build the project for production:
 
-1.  **`gatsby-browser.js`**: This file is where Gatsby expects to find any usage of the [Gatsby browser APIs](https://www.gatsbyjs.com/docs/reference/config-files/gatsby-browser/) (if any). These allow customization/extension of default Gatsby settings affecting the browser.
+```sh
+gatsby build
+```
 
-1.  **`gatsby-config.js`**: This is the main configuration file for a Gatsby site. This is where you can specify information about your site (metadata) like the site title and description, which Gatsby plugins you’d like to include, etc. (Check out the [config docs](https://www.gatsbyjs.com/docs/reference/config-files/gatsby-config/) for more detail).
+The static files will be generated in the `public` directory.
 
-1.  **`gatsby-node.js`**: This file is where Gatsby expects to find any usage of the [Gatsby Node APIs](https://www.gatsbyjs.com/docs/reference/config-files/gatsby-node/) (if any). These allow customization/extension of default Gatsby settings affecting pieces of the site build process.
+### Deploying the Project
 
-1.  **`gatsby-ssr.js`**: This file is where Gatsby expects to find any usage of the [Gatsby server-side rendering APIs](https://www.gatsbyjs.com/docs/reference/config-files/gatsby-ssr/) (if any). These allow customization of default Gatsby settings affecting server-side rendering.
+You can deploy the `public` directory to any static site hosting service, such as [GitHub Pages](https://pages.github.com/), [Netlify](https://www.netlify.com/), or [Vercel](https://vercel.com/).
 
-1.  **`LICENSE`**: This Gatsby starter is licensed under the 0BSD license. This means that you can see this file as a placeholder and replace it with your own license.
+## Adding/Modifying Case Studies
 
-1.  **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
+### Data Structure
 
-1.  **`README.md`**: A text file containing useful reference information about your project.
+The case studies are stored in the `src/data/caseStudies.js` file. Each case study is an object in the array, with the following structure:
 
-## 🎓 Learning Gatsby
+```javascript
+const caseStudies = [
+  {
+    id: '1',
+    name: 'Digital Twin of Vienna',
+    location: 'Vienna',
+    country: 'Austria',
+    shortList: 'Yes',
+    lat: 48.20263,
+    lng: 16.36842,
+    shortDescription: 'This is a brief description of Case Study 1, Digital Twin of Vienna.',
+    description: 'Full description of Digital Twin of Vienna.',
+    imagePath: '/images/case-study-1.jpg',
+  },
+  // More case studies...
+];
+```
 
-Looking for more guidance? Full documentation for Gatsby lives [on the website](https://www.gatsbyjs.com/). Here are some places to start:
+### Adding a New Case Study
 
-- **For most developers, we recommend starting with our [in-depth tutorial for creating a site with Gatsby](https://www.gatsbyjs.com/docs/tutorial/getting-started/).** It starts with zero assumptions about your level of ability and walks through every step of the process.
+1. **Add Case Study Data**: Open the `caseStudies.js` file and add a new object to the array following the structure above.
+2. **Add Case Study Image**: Place the corresponding image in the `src/images` directory.
+3. **Rebuild and Deploy**: After adding the new case study, rebuild the project with `gatsby build` and deploy the updated `public` directory.
 
-- **To dive straight into code samples, head [to our documentation](https://www.gatsbyjs.com/docs/).** In particular, check out the _Guides_, _API Reference_, and _Advanced Tutorials_ sections in the sidebar.
+## Extending the Project
 
-## 💫 Deploy
+### Customizing Styles
 
-[Build, Deploy, and Host On Netlify](https://netlify.com)
+- **Global Styles**: Modify `src/styles/global.css` to change global styles across the application.
+- **Component-Specific Styles**: Modify the specific CSS files, such as `HamburgerMenu.css`, to adjust individual components.
 
-The fastest way to combine your favorite tools and APIs to build the fastest sites, stores, and apps for the web. And also the best place to build, deploy, and host your Gatsby sites.
+### Customizing Map
 
-<!-- AUTO-GENERATED-CONTENT:END -->
+- **Map Style**: You can update the Mapbox style URL in the `Map.js` component.
+- **Markers**: Replace the marker icons in `src/images` with your preferred designs.
+
+## Known Issues and Troubleshooting
+
+- **Mapbox Issues**: If the map isn't loading correctly, check the Mapbox access token in `Map.js`.
+- **Marker Highlighting**: If markers aren't behaving as expected, ensure that the correct event listeners and state updates are in place.
