@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkgatsby_starter_default=self.webpackChunkgatsby_starter_default||[]).push([[759],{5473:function(e,t,a){a.r(t);var n=a(7294);t.default=e=>{let{pageContext:t}=e;const{study:a}=t;return n.createElement("main",null,n.createElement("h1",null,a.name),n.createElement("p",null,a.description),n.createElement("img",{src:a.imagePath,alt:a.name}))}}}]);
-//# sourceMappingURL=component---src-templates-case-study-js-51dcf4da780c16cf12f5.js.map
