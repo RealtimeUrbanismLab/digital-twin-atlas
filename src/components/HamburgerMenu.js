@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import '../styles/HamburgerMenu.css'; 
+import { Link } from 'gatsby';
+import '../styles/HamburgerMenu.css';
 
 const HamburgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,11 +18,11 @@ const HamburgerMenu = () => {
       </div>
       {isOpen && (
         <nav className="menu">
-          <button className="close-menu" onClick={toggleMenu}>X</button>
           <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/contact">Contact</a></li>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/case-studies-list">Case Studies</Link></li>
+            <li><Link to="/ethical-checklist">Ethical Checklist</Link></li>
+            <li><Link to="/about">About</Link></li> {/* Updated About link */}
           </ul>
         </nav>
       )}
