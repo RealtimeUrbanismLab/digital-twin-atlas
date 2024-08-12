@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'gatsby';
-import HamburgerMenu from '../components/HamburgerMenu'; 
+import HamburgerMenu from '../components/HamburgerMenu';
 import caseStudies from '../data/caseStudies';
 
 const CaseStudiesList = () => {
@@ -30,7 +30,7 @@ const CaseStudiesList = () => {
 
   return (
     <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
-      <HamburgerMenu /> 
+      <HamburgerMenu />
       <h1>Case Studies</h1>
       <div style={{ marginBottom: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -93,17 +93,19 @@ const CaseStudiesList = () => {
           />
         </div>
       </div>
-      <ul style={{ listStyleType: 'none', padding: 0 }}>
+      <ul style={{ display: 'flex', flexWrap: 'wrap', listStyleType: 'none', padding: 0 }}>
         {sortedCaseStudies.map((study) => (
           <li
             key={study.id}
             style={{
               background: '#f9f9f9',
-              marginBottom: '10px',
+              marginBottom: '20px',
               padding: '20px',
               borderRadius: '8px',
               boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
               transition: 'transform 0.2s ease-in-out',
+              width: 'calc(50% - 20px)',
+              marginRight: '20px',
             }}
             onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.02)')}
             onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}

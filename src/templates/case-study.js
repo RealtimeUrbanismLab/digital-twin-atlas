@@ -1,10 +1,10 @@
 import React from 'react';
-import HamburgerMenu from '../components/HamburgerMenu'; 
+import HamburgerMenu from '../components/HamburgerMenu';
 
 const CaseStudyTemplate = ({ pageContext: { study } }) => {
   return (
     <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
-      <HamburgerMenu /> 
+      <HamburgerMenu />
       <h1>{study.name}</h1>
       <p><strong>Location:</strong> {study.location}, {study.country}</p>
       <p><strong>Coordinates:</strong> {study.lat}, {study.lng}</p>
@@ -17,6 +17,9 @@ const CaseStudyTemplate = ({ pageContext: { study } }) => {
       <p><strong>Clients/Sponsors:</strong> {study['Clients/Sponsors']}</p>
       <p><strong>Users:</strong> {study.Users}</p>
       <p><strong>Status:</strong> {study.Status}</p>
+      <p><strong>Project State:</strong> {study['Project State']}</p>
+      <p><strong>Platform/Organization:</strong> {study['Platform/Organization']}</p>
+      <p><strong>Shortlisted:</strong> {study.shortList}</p>
       <p><strong>3D Platform:</strong> {study["3D Platform"]}</p>
       <p><strong>3D Platform Features:</strong> {study["3D Platform Features"]}</p>
       <p><strong>3D Platform to Physical City Control:</strong> {study["3D Platform to Physical City Control"]}</p>

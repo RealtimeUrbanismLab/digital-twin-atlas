@@ -800,9 +800,326 @@ const caseStudies = [
     "3D Platform to Physical City Control": "Allvision Parkview allows city planners to monitor parking behavior to improve transportation planning and curb management.",
     "Decision Making": "Optimize the best position for new parking infrastructure and new mobility features such as bike lanes and mass transit.; Through recording the exact location and status of these critical streetlight assets, Pittsburgh is better able to predict future processes and make informed decisions based on an internal database.",
     "Contested Claims/Challenges": "Allvision tried to provide detailed information such as height and material of pole. They thought it is useful and meaningful to get those information, however the stakeholders thought there is little economic sense.; Some part of data is collected manually, the accuracy of data could not be verification."
+  },
+  {
+    "id": 33,
+    "name": "Vancouver Airport Digital Twin",
+    "location": "Vancouver",
+    "country": "Canada",
+    "shortList": "No",
+    "lat": 49.26038,
+    "lng": -123.11336,
+    "Project State": "Completed",
+    "Platform/Organization": "AutoBEM"
+  },
+  {
+    "id": 34,
+    "name": "Los Bronces",
+    "location": "Los Bronces",
+    "country": "Chile",
+    "shortList": "No",
+    "lat": -33.02077,
+    "lng": -71.26388,
+    "Project State": "",
+    "Platform/Organization": "Siradel"
+  },
+  {
+    "id": 35,
+    "name": "Praderas Digital Master Plan",
+    "location": "Praderas",
+    "country": "Chile",
+    "shortList": "No",
+    "lat": -37.45903,
+    "lng": -72.38264,
+    "Project State": "",
+    "Platform/Organization": "Buro Happold"
+  },
+  {
+    "id": 36,
+    "name": "Santiago Des3aDo",
+    "location": "Santiago",
+    "country": "Chile",
+    "shortList": "No",
+    "lat": -33.43723,
+    "lng": -70.65003,
+    "Project State": "Completed",
+    "Platform/Organization": "Siradel (partner with Veolia, Artelia, Arte Charpentier and Architecture Studio"
+  },
+  {
+    "id": 37,
+    "name": "Chengdu",
+    "location": "Chengdu",
+    "country": "China",
+    "shortList": "No",
+    "lat": 30.6719,
+    "lng": 104.0758,
+    "Project State": "",
+    "Platform/Organization": "Siradel"
+  },
+  {
+    "id": 38,
+    "name": "Shenzhen Intelligent Twin",
+    "location": "Shenzhen",
+    "country": "China",
+    "shortList": "No",
+    "lat": 22.55651,
+    "lng": 114.11912,
+    "Project State": "",
+    "Platform/Organization": ""
+  },
+  {
+    "id": 39,
+    "name": "west yorkshire",
+    "location": "West Yorkshire",
+    "country": "England",
+    "shortList": "No",
+    "lat": 53.76812,
+    "lng": -1.64064,
+    "Project State": "",
+    "Platform/Organization": "Argaleo"
+  },
+  {
+    "id": 40,
+    "name": "Mullhouse",
+    "location": "Mullhouse",
+    "country": "France",
+    "shortList": "No",
+    "lat": 47.7517,
+    "lng": 7.34367,
+    "Project State": "",
+    "Platform/Organization": "Siradel"
+  },
+  {
+    "id": 41,
+    "name": "Nimes",
+    "location": "Nimes",
+    "country": "France",
+    "shortList": "No",
+    "lat": 43.83512,
+    "lng": 4.35855,
+    "Project State": "",
+    "Platform/Organization": "Siradel"
+  },
+  {
+    "id": 42,
+    "name": "Rennes Métropole",
+    "location": "Rennes",
+    "country": "France",
+    "shortList": "No",
+    "lat": 48.10804,
+    "lng": -1.68449,
+    "Project State": "",
+    "Platform/Organization": "(Siradel?) 3DEXPERIENCity"
+  },
+  {
+    "id": 43,
+    "name": "Strasboug",
+    "location": "Strasboug",
+    "country": "France",
+    "shortList": "No",
+    "lat": 48.58504,
+    "lng": 7.73642,
+    "Project State": "Proposal",
+    "Platform/Organization": "(Siradel?) Cesium"
+  },
+  {
+    "id": 44,
+    "name": "Arue",
+    "location": "Arue",
+    "country": "French Polynesia",
+    "shortList": "No",
+    "lat": -17.5252,
+    "lng": -149.53114,
+    "Project State": "",
+    "Platform/Organization": "Siradel"
+  },
+  {
+    "id": 45,
+    "name": "Bremen",
+    "location": "Bremen",
+    "country": "Germany",
+    "shortList": "No",
+    "lat": 53.07538,
+    "lng": 8.80455,
+    "Project State": "",
+    "Platform/Organization": ""
+  },
+  {
+    "id": 46,
+    "name": "Herrenberg",
+    "location": "Herrenberg",
+    "country": "Germany",
+    "shortList": "No",
+    "lat": 48.59521,
+    "lng": 8.86777,
+    "Project State": "",
+    "Platform/Organization": ""
+  },
+  {
+    "id": 47,
+    "name": "Cardiff",
+    "location": "Cardiff",
+    "country": "Groningen",
+    "shortList": "No",
+    "lat": 53.20367,
+    "lng": 6.47613,
+    "Project State": "",
+    "Platform/Organization": ""
+  },
+  {
+    "id": 48,
+    "name": "Győr",
+    "location": "Gyor",
+    "country": "Hungary",
+    "shortList": "No",
+    "lat": 47.68382,
+    "lng": 17.63567,
+    "Project State": "",
+    "Platform/Organization": "Physi"
+  },
+  {
+    "id": 49,
+    "name": "Amaravati",
+    "location": "Amaravati",
+    "country": "India",
+    "shortList": "No",
+    "lat": 18.96127,
+    "lng": 84.5713,
+    "Project State": "",
+    "Platform/Organization": "Citizenith-SmartWorldOS"
+  },
+  {
+    "id": 50,
+    "name": "Milan INnovation District (MIND)",
+    "location": "Milan",
+    "country": "Italy",
+    "shortList": "No",
+    "lat": 45.46796,
+    "lng": 9.18178,
+    "Project State": "In Progress",
+    "Platform/Organization": "(Siradel?) Lendlease"
+  },
+  {
+    "id": 51,
+    "name": "Puebla",
+    "location": "Puebla",
+    "country": "Mexico",
+    "shortList": "No",
+    "lat": 19.04386,
+    "lng": -98.19756,
+    "Project State": "",
+    "Platform/Organization": "Siradel"
+  },
+  {
+    "id": 52,
+    "name": "Fes",
+    "location": "Fes",
+    "country": "Morocco",
+    "shortList": "No",
+    "lat": 34.04187,
+    "lng": -5.00061,
+    "Project State": "",
+    "Platform/Organization": "Siradel"
+  },
+  {
+    "id": 53,
+    "name": "Groningen",
+    "location": "Groningen",
+    "country": "Netherlands",
+    "shortList": "No",
+    "lat": 53.21687,
+    "lng": 6.57393,
+    "Project State": "",
+    "Platform/Organization": ""
+  },
+  {
+    "id": 54,
+    "name": "the hague",
+    "location": "The Hague",
+    "country": "Netherlands",
+    "shortList": "No",
+    "lat": 52.08409,
+    "lng": 4.31732,
+    "Project State": "",
+    "Platform/Organization": "Argaleo"
+  },
+  {
+    "id": 55,
+    "name": "Zeeland",
+    "location": "Zeeland",
+    "country": "Netherlands",
+    "shortList": "No",
+    "lat": 51.69485,
+    "lng": 5.67284,
+    "Project State": "",
+    "Platform/Organization": ""
+  },
+  {
+    "id": 56,
+    "name": "Hamad Medical City Digital Twin",
+    "location": "Hamad",
+    "country": "Qatar",
+    "shortList": "No",
+    "lat": 24.92387,
+    "lng": 50.9721,
+    "Project State": "",
+    "Platform/Organization": "Buro Happold"
+  },
+  {
+    "id": 57,
+    "name": "Gothenburg",
+    "location": "Gothenburg",
+    "country": "Sweeden",
+    "shortList": "No",
+    "lat": 57.70067,
+    "lng": 11.96822,
+    "Project State": "",
+    "Platform/Organization": "Unreal Engine"
+  },
+  {
+    "id": 58,
+    "name": "Stockholm",
+    "location": "Stockholm",
+    "country": "Sweeden",
+    "shortList": "No",
+    "lat": 59.33257,
+    "lng": 18.06683,
+    "Project State": "",
+    "Platform/Organization": ""
+  },
+  {
+    "id": 59,
+    "name": "Izmit",
+    "location": "Izmit",
+    "country": "Turkey",
+    "shortList": "No",
+    "lat": 40.76694,
+    "lng": 29.93455,
+    "Project State": "",
+    "Platform/Organization": "Siradel"
+  },
+  {
+    "id": 60,
+    "name": "Denver",
+    "location": "Denver",
+    "country": "United States",
+    "shortList": "No",
+    "lat": 39.74001,
+    "lng": -104.99202,
+    "Project State": "",
+    "Platform/Organization": "ArcGIS"
+  },
+  {
+    "id": 61,
+    "name": "The New York City Brooklyn Navy Project",
+    "location": "New York City",
+    "country": "United States",
+    "shortList": "No",
+    "lat": 40.71453,
+    "lng": -74.00712,
+    "Project State": "In Progress",
+    "Platform/Organization": "ArcGIS"
   }
 ];
   
   module.exports = caseStudies;  // Use module.exports instead of export default
-
-  
