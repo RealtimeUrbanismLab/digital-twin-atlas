@@ -5,7 +5,7 @@ import markerIcon from '../images/marker-icon.png';
 import selectedMarkerIcon from '../images/marker-icon-selected.png';
 import { Link } from 'gatsby';
 
-const mapboxToken = "pk.eyJ1IjoicmVhbHRpbWVsYWIiLCJhIjoiY2x6bmdibWxzMG1hdDJrbjZ0eGNnYXgzdiJ9.7ierylGm2YDls-lDZyXODg";
+const mapboxToken = process.env.GATSBY_MAPBOX_API_KEY || "pk.eyJ1IjoicmVhbHRpbWVsYWIiLCJhIjoiY2x6cWUyYmNkMGNyNzJxcTg5ZHB3cmM3aCJ9.GxeOk3BD74C7ElBQZZCguw";
 
 const Map = ({ caseStudies }) => {
   const [map, setMap] = useState(null);
@@ -40,11 +40,11 @@ const Map = ({ caseStudies }) => {
 
         markerElement.addEventListener('click', () => {
           if (highlightedMarker && highlightedMarker !== markerElement) {
-            highlightedMarker.style.backgroundImage = `url(${markerIcon})`; // Reset previous marker
+            highlightedMarker.style.backgroundImage = `url(${markerIcon})`;
           }
 
-          markerElement.style.backgroundImage = `url(${selectedMarkerIcon})`; // Highlight current marker
-          setHighlightedMarker(markerElement); // Update the highlighted marker
+          markerElement.style.backgroundImage = `url(${selectedMarkerIcon})`;
+          setHighlightedMarker(markerElement);
           setSelectedStudy(study);
         });
       });
@@ -63,6 +63,12 @@ const Map = ({ caseStudies }) => {
       setHighlightedMarker(null);
     }
     setSelectedStudy(null);
+  };
+
+  const truncateText = (text, maxLength) => {
+    if (!text) return '';  // Return an empty string if text is undefined or null
+    if (text.length <= maxLength) return text;
+    return text.substr(0, maxLength) + '...';
   };
 
   return (
@@ -86,7 +92,24 @@ const Map = ({ caseStudies }) => {
           lineHeight: '1.5'
         }}>
           <h2 style={{ fontSize: '1.5rem', marginBottom: '10px', color: '#444' }}>{selectedStudy.name}</h2>
-          <p style={{ marginBottom: '15px' }}>{selectedStudy.shortDescription}</p>
+          <p style={{ marginBottom: '5px' }}><strong>Location:</strong> {selectedStudy.location}, {selectedStudy.country}</p>
+          <p style={{ marginBottom: '5px' }}><strong>Start Year:</strong> {selectedStudy['Start Year']}</p>
+          <p style={{ marginBottom: '5px' }}><strong>Creators:</strong> {selectedStudy.Creators}</p>
+          <p style={{ marginBottom: '15px' }}>
+            <span className="fade-text">
+            <strong>Description:</strong> {truncateText(selectedStudy.Description, 50)}
+              {selectedStudy.Description && selectedStudy.Description.length > 50 && (
+                <span style={{
+                  position: 'absolute',
+                  right: 0,
+                  bottom: 0,
+                  width: '2em',
+                  height: '1.2em',
+                  background: 'linear-gradient(to right, rgba(255, 255, 255, 0) 0%, white 100%)'
+                }}></span>
+              )}
+            </span>
+          </p>
           <Link to={`/case-studies/${selectedStudy.id}`} style={{
             display: 'inline-block',
             marginBottom: '15px',

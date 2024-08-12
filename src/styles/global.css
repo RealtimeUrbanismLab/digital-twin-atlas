@@ -27,6 +27,42 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
+
+  .marker {
+    cursor: pointer;
+  }
+  
+  .popup h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #444;
+  }
+  
+  .popup p {
+    margin-bottom: 5px;
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  
+  .popup .fade-text {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    max-height: 3.6em;
+  }
+  
+  .popup .fade-text::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 5em;
+    height: 1.2em;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, white 100%);
+  } 
+  
+
   
   button {
     background-color: #1e90ff;
@@ -54,3 +90,5 @@ body {
     height: 100%;
     overflow: hidden; /* Ensure the map doesn't trigger scrollbars */
   }
+
+  

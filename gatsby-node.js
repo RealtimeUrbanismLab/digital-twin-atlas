@@ -3,6 +3,10 @@
 const path = require('path');
 const caseStudies = require('./src/data/caseStudies.js'); // Import the data
 
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
+
 exports.createPages = async ({ actions }) => {
   const { createPage } = actions;
 
