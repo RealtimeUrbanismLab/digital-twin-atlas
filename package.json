@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "Realtime Urbanism Lab",
   "dependencies": {
+    "chart.js": "^4.4.3",
     "dotenv": "^16.4.5",
     "gatsby": "^5.13.5",
     "gatsby-plugin-image": "^3.13.1",
@@ -16,6 +17,7 @@
     "gh-pages": "^6.1.1",
     "mapbox-gl": "^3.5.2",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-map-gl": "^7.1.7"
   },
@@ -38,7 +40,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/realtimeurbanismlab/digital-twin-atlas" 
+    "url": "https://github.com/realtimeurbanismlab/digital-twin-atlas"
   },
   "bugs": {
     "url": "https://github.com/realtimeurbanismlab/digital-twin-atlas/issues"

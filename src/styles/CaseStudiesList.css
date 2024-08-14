@@ -1,0 +1,83 @@
+.controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+  
+  .filters, .shortlist-filter, .search-bar {
+    display: flex;
+    align-items: center;
+  }
+  
+  .filters select, .shortlist-filter input, .search-bar input {
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #f4f4f9;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+  }
+  
+  .search-bar input {
+    width: 200px;
+  }
+  
+  .case-studies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .case-study-card {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .case-study-card:hover {
+    transform: scale(1.02);
+  }
+  
+  .case-study-card a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .card-header {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+  }
+  
+  .shortlist-tag {
+    color: green;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+  }
+  
+  .thumbnail-image {
+    margin-top: 10px;
+    border-radius: 8px;
+  }
+  
+  .card-body {
+    margin-top: 10px;
+  }
+  
+  .charts {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+  }
+  
+  .chart-container {
+    width: 45%;
+    height: 300px;
+  }
+  
