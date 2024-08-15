@@ -6,7 +6,7 @@
 
 // You can delete this file if you're not using it
 
-import './src/styles/global.css';
+import './src/styles/Global.css';
 
 export const onClientEntry = () => {
   // Load Google Fonts

@@ -1,11 +1,18 @@
 import React from 'react';
 import HamburgerMenu from '../components/HamburgerMenu';
+import defaultImage from '../images/case-studies/case-study.jpg';
 
 const CaseStudyTemplate = ({ pageContext: { study } }) => {
   return (
     <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
       <HamburgerMenu />
-      <h1>{study.name}</h1>
+      <h1>{study.name}</h1>      
+      <img
+                src={study.imagePath || defaultImage}
+                alt={study.name}
+                style={{ maxWidth: '100%', borderRadius: '0px', marginTop: '20px' }}
+                className="duotone img"
+              />
       <p><strong>Location:</strong> {study.location}, {study.country}</p>
       <p><strong>Coordinates:</strong> {study.lat}, {study.lng}</p>
       <p><strong>Description:</strong> {study.Description}</p>
@@ -25,7 +32,6 @@ const CaseStudyTemplate = ({ pageContext: { study } }) => {
       <p><strong>3D Platform to Physical City Control:</strong> {study["3D Platform to Physical City Control"]}</p>
       <p><strong>Decision Making:</strong> {study['Decision Making']}</p>
       <p><strong>Contested Claims/Challenges:</strong> {study['Contested Claims/Challenges']}</p>
-      {study.imagePath && <img src={study.imagePath} alt={study.name} style={{ maxWidth: '100%', borderRadius: '8px', marginTop: '20px' }} />}
     </div>
   );
 };

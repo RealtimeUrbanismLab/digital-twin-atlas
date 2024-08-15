@@ -14,6 +14,7 @@ import {
 } from 'chart.js';
 import { Bar, Pie } from 'react-chartjs-2';
 import '../styles/CaseStudiesList.css';
+import defaultImage from '../images/case-studies/case-study.jpg';
 
 // Register required Chart.js components
 ChartJS.register(
@@ -26,8 +27,7 @@ ChartJS.register(
   Legend
 );
 
-const defaultImage = '/path-to-default-image.jpg'; // Placeholder image path
-const itemsPerPage = 10; // Number of case studies to load initially and on each scroll
+const itemsPerPage = 12; // Number of case studies to load initially and on each scroll
 
 const CaseStudiesList = () => {
   const [sortOption, setSortOption] = useState('alphabetical');
@@ -38,7 +38,6 @@ const CaseStudiesList = () => {
   const [filters, setFilters] = useState({
     country: '',
     status: '',
-    projectState: '',
   });
   const loadMoreRef = useRef();
 
@@ -52,8 +51,7 @@ const CaseStudiesList = () => {
       (shortListFilter ? study.shortList === 'Yes' : true) &&
       (searchQuery === '' || study.name.toLowerCase().includes(searchQuery.toLowerCase())) &&
       (filters.country === '' || study.country === filters.country) &&
-      (filters.status === '' || study.Status === filters.status) &&
-      (filters.projectState === '' || study['Project State'] === filters.projectState)
+      (filters.status === '' || study.Status === filters.status)
     )
     .sort((a, b) => {
       const order = sortOrder === 'asc' ? 1 : -1;
@@ -70,8 +68,6 @@ const CaseStudiesList = () => {
           return order * (a['Start Year'] - b['Start Year']);
         case 'status':
           return order * a.Status.localeCompare(b.Status);
-        case 'projectState':
-          return order * a['Project State'].localeCompare(b['Project State']);
         default:
           return 0;
       }
@@ -139,7 +135,6 @@ const CaseStudiesList = () => {
     ],
   };
   
-
   return (
     <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
       <HamburgerMenu />
@@ -147,92 +142,88 @@ const CaseStudiesList = () => {
 
       {/* Charts Section */}
       <div className="charts">
-        <div className="chart-container">
-          <h2>Projects by Country</h2>
-          <Bar data={countryData} options={{ maintainAspectRatio: false }} />
+        <div className="chart-wrapper">
+          <h2 className="chart-title">Projects by Country</h2>
+          <div className="chart-container">
+            <Bar data={countryData} options={{ maintainAspectRatio: false }} />
+          </div>
         </div>
-        <div className="chart-container">
-          <h2>Project Status Distribution</h2>
-          <Pie data={statusData} options={{ maintainAspectRatio: false }} />
+        <div className="chart-wrapper">
+          <h2 className="chart-title">Project Status Distribution</h2>
+          <div className="chart-container">
+            <Pie data={statusData} options={{ maintainAspectRatio: false }} />
+          </div>
         </div>
       </div>
 
-      <div className="controls">
-        <div className="filters">
-          <label>Sort by:</label>
-          <select value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
-            <option value="alphabetical">Alphabetical</option>
-            <option value="city">City</option>
-            <option value="country">Country</option>
-            <option value="area">Total Area</option>
-            <option value="startYear">Start Year</option>
-            <option value="status">Status</option>
-            <option value="projectState">Project State</option>
-          </select>
-          <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
-            <option value="asc">Ascending</option>
-            <option value="desc">Descending</option>
-          </select>
-        </div>
-        <div className="additional-filters">
-          <label>Country:</label>
-          <select name="country" value={filters.country} onChange={handleFilterChange}>
-            <option value="">All</option>
-            {[...new Set(caseStudies.map(study => study.country))].map(country => (
-              <option key={country} value={country}>{country}</option>
-            ))}
-          </select>
-          <label>Status:</label>
-          <select name="status" value={filters.status} onChange={handleFilterChange}>
-            <option value="">All</option>
-            <option value="Implemented">Implemented</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Planned">Planned</option>
-          </select>
-          <label>Project State:</label>
-          <select name="projectState" value={filters.projectState} onChange={handleFilterChange}>
-            <option value="">All</option>
-            {[...new Set(caseStudies.map(study => study['Project State']))].map(state => (
-              <option key={state} value={state}>{state}</option>
-            ))}
-          </select>
-        </div>
-        <div className="shortlist-filter">
-          <label>Short List Only:</label>
-          <input
-            type="checkbox"
-            checked={shortListFilter}
-            onChange={(e) => setShortListFilter(e.target.checked)}
-          />
-        </div>
-        <div className="search-bar">
+      {/* Filters Section */}
+      <div className="controls sticky-filters">
+        <div className="filters-group">
+          <div className="filter-controls">
+            <label>Filters:</label>
+            <select name="country" value={filters.country} onChange={handleFilterChange}>
+              <option value="">Country: All</option>
+              {[...new Set(caseStudies.map(study => study.country))].map(country => (
+                <option key={country} value={country}>{country}</option>
+              ))}
+            </select>
+            <select name="status" value={filters.status} onChange={handleFilterChange}>
+              <option value="">Status: All</option>
+              <option value="Implemented">Implemented</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Planned">Planned</option>
+            </select>
+          </div>
           <input
             type="text"
+            className="search-bar"
             placeholder="Search case studies..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
+          <div className="sort-controls">
+              
+              
+            <div className="toggle-switch">
+              <label className="toggle-label">
+                <input
+                  type="checkbox"
+                  checked={shortListFilter}
+                  onChange={(e) => setShortListFilter(e.target.checked)}
+                />
+                <span className="slider"></span>
+                <span className="toggle-text">Short List Only</span>
+              </label>
+            </div>
+
+
+            <div className="toggle-button">
+                <button onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}>
+                {sortOrder === 'asc' ? 'Ascending' : 'Descending'}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
+      {/* Case Studies Grid */}
       <div className="case-studies-grid">
         {paginatedCaseStudies.map((study) => (
-          <div className="case-study-card" key={study.id}>
+          <div className="card case-study-card" key={study.id}>
             <Link to={`/case-studies/${study.id}`}>
-              <div className="card-header">
+              <h3 className="card-title">{study.name}</h3>
+              <div className="image-container">
+                <img
+                  src={study.imagePath || defaultImage}
+                  alt={study.name}
+                  className="duotone img"
+                />
                 {study.shortList === 'Yes' && <span className="shortlist-tag">Short Listed</span>}
               </div>
-              <h3>{study.name}</h3>
-              <img
-                src={study.imagePath || defaultImage}
-                alt={study.name}
-                className="thumbnail-image"
-              />
               <div className="card-body">
                 <p><strong>Country:</strong> {study.country || 'N/A'}</p>
                 <p><strong>City:</strong> {study.location || 'N/A'}</p>
                 <p><strong>Total Area:</strong> {study['Total Area (km2)'] || 'N/A'} km²</p>
-                <p><strong>Start Year:</strong> {study['Start Year'] || 'N/A'}</p>
                 <p style={{ color: study.Status === 'Implemented' ? 'green' : study.Status === 'In Progress' ? 'orange' : 'red' }}>
                   <strong>Status:</strong> {study.Status || 'N/A'}
                 </p>

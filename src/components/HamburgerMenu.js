@@ -10,7 +10,7 @@ const HamburgerMenu = () => {
   };
 
   return (
-    <div>
+    <div className="hamburger-menu">
       <div className="hamburger-icon" onClick={toggleMenu}>
         <div className="line"></div>
         <div className="line"></div>

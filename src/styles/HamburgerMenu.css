@@ -1,40 +1,85 @@
-.hamburger-icon {
-  width: 30px;
-  height: 22px;
+/* Hamburger Menu Styles */
+.hamburger-menu {
   position: fixed;
   top: 20px;
-  left: 20px;
-  z-index: 100;
+  left: 20px; /* Align to the right */
+  z-index: 2000;
+}
+
+.hamburger-icon {
+  width: 30px; /* Width of the icon */
+  height: 30px; /* Height of the icon */
+  position: relative;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: inherit;
 }
 
-.hamburger-icon .line {
-  width: 100%;
-  height: 4px;
-  background-color: #3498db; /* Primary color */
-  margin: 4px 0;
+.line {
+  width: 100%; /* Full width of the icon container */
+  height: 3px; /* Thickness of the lines */
+  background-color: var(--primary-color); /* Ensure this color is visible */
+  margin: 3px 0; /* Spacing between the lines */
+  transition: all 0.3s ease;
 }
 
-.menu {
+.hamburger-icon:hover .line {
+  background-color: var(--secondary-color); /* Optional: change color on hover */
+}
+
+.hamburger-menu.open .line:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-menu.open .line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu.open .line:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Hamburger Navigation */
+.hamburger-nav {
+  background-color: var(--background-color);
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
-  z-index: 99;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  width: 250px;
+  height: 100vh;
+  padding: 60px 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 1000;
 }
 
-.menu ul li a {
-  color: #ecf0f1;
-  font-size: 24px;
+.hamburger-menu.open .hamburger-nav {
+  transform: translateX(0);
+}
+
+.hamburger-nav a {
+  color: var(--text-color);
+  display: block;
+  padding: 10px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
   text-decoration: none;
 }
 
-.menu ul li a:hover {
-  color: #2ecc71; /* Secondary Accent */
+.hamburger-nav a:hover {
+  color: var(--secondary-color);
+}
+
+.menu {
+  padding-top: 10px;
+}
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
