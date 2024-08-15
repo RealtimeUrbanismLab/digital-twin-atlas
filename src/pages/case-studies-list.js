@@ -245,12 +245,18 @@ const CaseStudiesList = () => {
               </div>
               <div className="card-body">
                 <ul className="details-list">
+                  
                   <li><strong>Country:</strong> {study.country || 'N/A'}</li>
                   <li><strong>City:</strong> {study.location || 'N/A'}</li>
+                  <li><strong>Creators:</strong> {study['Creators'] || 'N/A'}</li>
                   <li><strong>Total Area:</strong> {study['Total Area (km2)'] || 'N/A'} km²</li>
-                  <li>
+                  <li><strong>Platform/Organization:</strong> {study['Platform/Organization'] || 'N/A'}</li>
+                  <li><strong>System Digital Twinned:</strong> {study['System Digital Twinned'] || 'N/A'}</li>
+                  <li><strong>3D Platform Features:</strong> {study['3D Platform Features'] || 'N/A'}</li>
+
+                  <li><span style={{ color: study.FinalStatus === 'Completed' ? 'green' : study.FinalStatus === 'In Progress' ? 'orange' : 'red' }}>
                     <strong>Status: </strong>
-                    <span style={{ color: study.FinalStatus === 'Completed' ? 'green' : study.FinalStatus === 'In Progress' ? 'orange' : 'red' }}>
+                    
                       {study.FinalStatus || 'N/A'}
                     </span>
                   </li>

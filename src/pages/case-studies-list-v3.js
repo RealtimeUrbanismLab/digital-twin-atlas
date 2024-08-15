@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'gatsby';
 import HamburgerMenu from '../components/HamburgerMenu';
 import caseStudies from '../data/caseStudies';
+import MapboxGL from 'mapbox-gl';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -16,8 +17,6 @@ import { Bar, Pie } from 'react-chartjs-2';
 import '../styles/CaseStudiesList.css';
 import defaultImage from '../images/case-studies/case-study.jpg';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import Map from '../components/Map'; // Import the Map component
-//import caseStudies from '../data/caseStudies'; // Import the data
 
 // Register required Chart.js components
 ChartJS.register(
@@ -30,7 +29,9 @@ ChartJS.register(
   Legend
 );
 
-const itemsPerPage = 12; // Number of case studies to load initially and on each scroll
+const itemsPerPage = 12;
+
+MapboxGL.accessToken = 'pk.eyJ1IjoicmVhbHRpbWVsYWIiLCJhIjoiY2x6cWUyYmNkMGNyNzJxcTg5ZHB3cmM3aCJ9.GxeOk3BD74C7ElBQZZCguw';
 
 const CaseStudiesList = () => {
   const [sortOption, setSortOption] = useState('alphabetical');
@@ -41,30 +42,92 @@ const CaseStudiesList = () => {
   const [filters, setFilters] = useState({
     country: '',
     status: '',
+    startYear: '',
+    endYear: ''
   });
   const loadMoreRef = useRef();
+  const mapContainerRef = useRef(null);
+  const mapRef = useRef(null);
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     setFilters({ ...filters, [name]: value });
   };
 
-  // Only access getComputedStyle in browser environment
-  let primaryColor, secondaryColor, accentColor1, accentColor2, accentColor3;
-  if (typeof window !== 'undefined') {
-    primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim();
-    secondaryColor = getComputedStyle(document.documentElement).getPropertyValue('--secondary-color').trim();
-    accentColor1 = getComputedStyle(document.documentElement).getPropertyValue('--accent-color-1').trim();
-    accentColor2 = getComputedStyle(document.documentElement).getPropertyValue('--accent-color-2').trim();
-    accentColor3 = getComputedStyle(document.documentElement).getPropertyValue('--accent-color-3').trim();
-  }
+  // Initialize Mapbox map
+  useEffect(() => {
+    if (mapContainerRef.current && !mapRef.current) {
+      mapRef.current = new MapboxGL.Map({
+        container: mapContainerRef.current,
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [0, 0],
+        zoom: 2,
+      });
+
+      mapRef.current.on('load', () => {
+        updateMapMarkers();
+      });
+    }
+  }, []);
+
+  const updateMapMarkers = () => {
+    if (mapRef.current && mapRef.current.isStyleLoaded() && visibleCaseStudies > 0) {
+      // Remove existing markers from the map
+      const layers = mapRef.current.getStyle().layers;
+      if (layers) {
+        layers.forEach((layer) => {
+          if (layer.id.startsWith('marker-')) {
+            if (mapRef.current.getLayer(layer.id)) {
+              mapRef.current.removeLayer(layer.id);
+            }
+            if (mapRef.current.getSource(layer.id)) {
+              mapRef.current.removeSource(layer.id);
+            }
+          }
+        });
+      }
+
+      const bounds = new MapboxGL.LngLatBounds();
+      const visibleStudies = caseStudies.slice(0, visibleCaseStudies);
+
+      visibleStudies.forEach((study) => {
+        if (study.lat && study.lng) {
+          const markerId = `marker-${study.id}`;
+
+          new MapboxGL.Marker()
+            .setLngLat([study.lng, study.lat])
+            .setPopup(new MapboxGL.Popup({ offset: 25 }).setText(study.name))
+            .addTo(mapRef.current);
+
+          bounds.extend([study.lng, study.lat]);
+        }
+      });
+
+      if (!bounds.isEmpty()) {
+        mapRef.current.fitBounds(bounds, { padding: 50 });
+      }
+    }
+  };
+
+  // Update map markers when the visible case studies change
+  useEffect(() => {
+    if (mapRef.current) {
+      if (mapRef.current.isStyleLoaded()) {
+        updateMapMarkers();
+      } else {
+        mapRef.current.on('style.load', updateMapMarkers);
+      }
+    }
+  }, [visibleCaseStudies]);
 
   const sortedCaseStudies = [...caseStudies]
     .filter(study =>
       (shortListFilter ? study.shortList === 'Yes' : true) &&
       (searchQuery === '' || study.name.toLowerCase().includes(searchQuery.toLowerCase())) &&
       (filters.country === '' || study.country === filters.country) &&
-      (filters.status === '' || study.FinalStatus === filters.status)
+      (filters.status === '' || study.FinalStatus === filters.status) &&
+      (filters.startYear === '' || study['Start Year'] >= filters.startYear) &&
+      (filters.endYear === '' || study['End Year'] <= filters.endYear || study['End Year'] === 'N/A')
     )
     .sort((a, b) => {
       const order = sortOrder === 'asc' ? 1 : -1;
@@ -116,8 +179,8 @@ const CaseStudiesList = () => {
         data: [...new Set(caseStudies.map(study => study.country))].map(country =>
           caseStudies.filter(study => study.country === country).length
         ),
-        backgroundColor: secondaryColor ? `${secondaryColor}B3` : 'rgba(52, 152, 219, 0.7)', // Fallback color
-        borderColor: secondaryColor || 'rgba(52, 152, 219, 1)', // Fallback color
+        backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--secondary-color') + 'B3',
+        borderColor: getComputedStyle(document.documentElement).getPropertyValue('--secondary-color'),
         borderWidth: 1,
       },
     ],
@@ -135,16 +198,16 @@ const CaseStudiesList = () => {
           caseStudies.filter(study => study.FinalStatus === 'Did Not Start').length,
         ],
         backgroundColor: [
-          accentColor1 ? `${accentColor1}B3` : 'rgba(46, 204, 113, 0.7)', // Fallback color
-          primaryColor ? `${primaryColor}B3` : 'rgba(52, 152, 219, 0.7)', // Fallback color
-          accentColor3 ? `${accentColor3}B3` : 'rgba(231, 76, 60, 0.7)', // Fallback color
-          accentColor2 ? `${accentColor2}B3` : 'rgba(155, 89, 182, 0.7)', // Fallback color
+          getComputedStyle(document.documentElement).getPropertyValue('--accent-color-1') + 'B3',
+          getComputedStyle(document.documentElement).getPropertyValue('--primary-color') + 'B3',
+          getComputedStyle(document.documentElement).getPropertyValue('--accent-color-3') + 'B3',
+          getComputedStyle(document.documentElement).getPropertyValue('--accent-color-2') + 'B3',
         ],
         borderColor: [
-          accentColor1 || 'rgba(46, 204, 113, 1)', // Fallback color
-          primaryColor || 'rgba(52, 152, 219, 1)', // Fallback color
-          accentColor3 || 'rgba(231, 76, 60, 1)', // Fallback color
-          accentColor2 || 'rgba(155, 89, 182, 1)', // Fallback color
+          getComputedStyle(document.documentElement).getPropertyValue('--accent-color-1'),
+          getComputedStyle(document.documentElement).getPropertyValue('--primary-color'),
+          getComputedStyle(document.documentElement).getPropertyValue('--accent-color-3'),
+          getComputedStyle(document.documentElement).getPropertyValue('--accent-color-2'),
         ],
         borderWidth: 1,
       },
@@ -152,17 +215,10 @@ const CaseStudiesList = () => {
   };
 
   return (
-
-    // Main Container
     <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
-      
-      {/* Menu */}
       <HamburgerMenu />
-      
-      {/* Heading */}
       <h1>Case Studies</h1>
 
-      {/* Filters Section */}
       <div className="controls sticky-filters">
         <div className="filters-group">
           <div className="filter-controls">
@@ -180,6 +236,26 @@ const CaseStudiesList = () => {
               <option value="Failed">Failed</option>
               <option value="Did Not Start">Did Not Start</option>
             </select>
+            <input
+              type="number"
+              name="startYear"
+              className="search-bar"
+              placeholder="Start Year"
+              value={filters.startYear}
+              onChange={(e) => handleFilterChange(e)}
+              min="1900"
+              max="2100"
+            />
+            <input
+              type="number"
+              name="endYear"
+              className="search-bar"
+              placeholder="End Year"
+              value={filters.endYear}
+              onChange={(e) => handleFilterChange(e)}
+              min="1900"
+              max="2100"
+            />
           </div>
           <input
             type="text"
@@ -211,33 +287,25 @@ const CaseStudiesList = () => {
         </div>
       </div>
 
-      {/* Charts Section */}
       <div className="charts">
-
-        {/* New container for the map */}
-        <div className="chart-wrapper">
-          <h3 className="chart-title">Map</h3>
-          <div className="map-container"> 
-            <Map caseStudies={caseStudies} />
-          </div>
-        </div>
-
         <div className="chart-wrapper">
           <h3 className="chart-title">Project Status Distribution</h3>
           <div className="chart-container">
             <Pie data={statusData} options={{ maintainAspectRatio: false }} />
           </div>
         </div>
-      </div>
-
-      <div className="chart-wrapper">
+        <div className="chart-wrapper">
           <h3 className="chart-title">Projects by Country</h3>
           <div className="chart-container">
             <Bar data={countryData} options={{ maintainAspectRatio: false }} />
           </div>
         </div>
+      </div>
 
-      {/* Case Studies Grid */}
+      <div className="map-container">
+        <div id="map" ref={mapContainerRef}></div>
+      </div>
+
       <div className="case-studies-grid">
         {paginatedCaseStudies.map((study) => (
           <div className="card case-study-card" key={study.id}>
@@ -253,7 +321,6 @@ const CaseStudiesList = () => {
               </div>
               <div className="card-body">
                 <ul className="details-list">
-                  
                   <li><strong>Country:</strong> {study.country || 'N/A'}</li>
                   <li><strong>City:</strong> {study.location || 'N/A'}</li>
                   <li><strong>Creators:</strong> {study['Creators'] || 'N/A'}</li>
@@ -261,11 +328,8 @@ const CaseStudiesList = () => {
                   <li><strong>Platform/Organization:</strong> {study['Platform/Organization'] || 'N/A'}</li>
                   <li><strong>System Digital Twinned:</strong> {study['System Digital Twinned'] || 'N/A'}</li>
                   <li><strong>3D Platform Features:</strong> {study['3D Platform Features'] || 'N/A'}</li>
-
                   <li><span style={{ color: study.FinalStatus === 'Completed' ? 'green' : study.FinalStatus === 'In Progress' ? 'orange' : 'red' }}>
-                    <strong>Status: </strong>
-                    
-                      {study.FinalStatus || 'N/A'}
+                    <strong>Status: </strong>{study.FinalStatus || 'N/A'}
                     </span>
                   </li>
                 </ul>
@@ -275,8 +339,6 @@ const CaseStudiesList = () => {
         ))}
       </div>
 
-
-      {/* Load More Indicator */}
       <div ref={loadMoreRef} style={{ height: '50px', marginTop: '20px' }}></div>
     </div>
   );

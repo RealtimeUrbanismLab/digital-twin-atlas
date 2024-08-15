@@ -286,7 +286,7 @@ input:checked + .slider:before {
 
 .details-list li {
   line-height: 1.4; /* Adjust this value to make the lines more or less condensed */
-  margin-bottom: 4px; /* Add some space between list items */
+  margin-bottom: 8px; /* Add some space between list items */
 }
 
 .details-list li:last-child {
