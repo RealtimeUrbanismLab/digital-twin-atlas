@@ -1,94 +1,80 @@
 body {
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
-    overflow: hidden; /* Disable vertical scrolling */
-  }
-  
-  h1, h2 {
-    color: #444;
-    margin: 0;
-    padding: 0;
-  }
-  
-  a {
-    color: #1e90ff;
-    text-decoration: none;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
-  
-  .popup {
-    background-color: #fff;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #ecf0f1; /* Background */
+  color: #2c3e50; /* Text color */
+  overflow: hidden;  /* Disable vertical scrolling */
+}
 
-  .marker {
-    cursor: pointer;
-  }
-  
-  .popup h2 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    color: #444;
-  }
-  
-  .popup p {
-    margin-bottom: 5px;
-    color: #333;
-    font-size: 1rem;
-    line-height: 1.5;
-  }
-  
-  .popup .fade-text {
-    position: relative;
-    overflow: hidden;
-    display: inline-block;
-    max-height: 3.6em;
-  }
-  
-  .popup .fade-text::after {
-    content: "";
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 5em;
-    height: 1.2em;
-    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, white 100%);
-  } 
-  
+h1, h2 {
+  color: #2c3e50;
+  margin: 0;
+  padding: 0;
+}
 
-  
-  button {
-    background-color: #1e90ff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #006dbf;
-  }
-  
-  img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-  }
-  
-  
+a {
+  color: #3498db; /* Primary color */
+  text-decoration: none;
+}
 
-  #map {
-    width: 100%;
-    height: 100%;
-    overflow: hidden; /* Ensure the map doesn't trigger scrollbars */
-  }
+a:hover {
+  text-decoration: underline;
+}
 
-  
+/* Button Styling */
+button {
+  background-color: #2ecc71; /* Secondary Accent */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #27ae60;
+}
+
+.popup {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: #2c3e50;
+}
+
+.marker {
+  cursor: pointer;
+}
+
+.popup h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.popup p {
+  margin-bottom: 5px;
+  color: #2c3e50;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Hamburger Menu */
+.hamburger-icon .line {
+  background-color: #3498db; /* Primary color */
+}
+
+.menu ul li a {
+  color: #ecf0f1;
+}
+
+.menu ul li a:hover {
+  color: #2ecc71; /* Secondary Accent */
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Ensure the map doesn't trigger scrollbars */
+}

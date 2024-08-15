@@ -1,27 +1,41 @@
-.controls {
+body {
+    overflow: auto;
+  }
+  
+  .controls {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     margin-bottom: 20px;
     align-items: center;
+    position: sticky;
+    top: 0;
+    background-color: #ecf0f1;
+    padding: 10px 0;
+    z-index: 10;
+    border-bottom: 1px solid #ddd;
   }
   
-  .filters, .shortlist-filter, .search-bar {
+  .filters, .additional-filters, .shortlist-filter, .search-bar {
     display: flex;
     align-items: center;
+    margin-right: 10px;
+    margin-bottom: 10px;
   }
   
-  .filters select, .shortlist-filter input, .search-bar input {
+  .filters select, .additional-filters select, .shortlist-filter input, .search-bar input {
     padding: 10px;
     margin-right: 10px;
     border-radius: 8px;
     border: 1px solid #ccc;
-    background-color: #f4f4f9;
+    background-color: #fff;
     font-family: 'Roboto', sans-serif;
-    color: #333;
+    color: #2c3e50;
   }
   
   .search-bar input {
-    width: 200px;
+    width: 250px;
+    border: 1px solid #3498db;
   }
   
   .case-studies-grid {
@@ -31,13 +45,13 @@
   }
   
   .case-study-card {
-    background: #f9f9f9;
+    background: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease-in-out;
     text-decoration: none;
-    color: #333;
+    color: #2c3e50;
   }
   
   .case-study-card:hover {
@@ -56,8 +70,11 @@
   }
   
   .shortlist-tag {
-    color: green;
-    font-size: 0.9rem;
+    background-color: #3498db;
+    color: #ecf0f1;
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    border-radius: 4px;
     margin-bottom: 5px;
   }
   
@@ -74,10 +91,26 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 40px;
+    flex-wrap: wrap;
   }
   
   .chart-container {
-    width: 45%;
+    width: 48%;
     height: 300px;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .chart-container h2 {
+    margin-bottom: 15px;
+    color: #2c3e50;
+    text-align: center;
+  }
+  
+  .load-more-indicator {
+    height: 50px;
+    margin-top: 20px;
   }
   

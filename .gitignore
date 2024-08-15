@@ -68,3 +68,7 @@ yarn-error.log
 # Yarn Integrity file
 .yarn-integrity
 .env
+
+# internal commands
+directory_and_file_contents.txt
+printout.txt

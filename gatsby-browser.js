@@ -21,3 +21,4 @@ export const onClientEntry = () => {
   script.crossOrigin = 'anonymous';
   document.head.appendChild(script);
 };
+
