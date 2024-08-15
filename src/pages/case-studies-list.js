@@ -169,6 +169,7 @@ const CaseStudiesList = () => {
         </div>
       </div>
 
+
       {/* Filters Section */}
       <div className="controls sticky-filters">
         <div className="filters-group">
@@ -195,27 +196,30 @@ const CaseStudiesList = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <div className="sort-controls">
-            <div className="toggle-switch">
-              <label className="toggle-label">
-                <input
-                  type="checkbox"
-                  checked={shortListFilter}
-                  onChange={(e) => setShortListFilter(e.target.checked)}
-                />
-                <span className="slider"></span>
-                <span className="toggle-text">Short List Only</span>
-              </label>
-            </div>
+        </div>
 
-            <div className="toggle-button">
-              <button onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}>
-                {sortOrder === 'asc' ? 'Ascending' : 'Descending'}
-              </button>
-            </div>
+        <div className="sort-toggle-group">
+          <div className="toggle-switch">
+            <label className="toggle-label">
+              <input
+                type="checkbox"
+                checked={shortListFilter}
+                onChange={(e) => setShortListFilter(e.target.checked)}
+              />
+              <span className="slider"></span>
+              <span className="toggle-text">Short List Only</span>
+            </label>
+          </div>
+
+          <div className="toggle-button">
+            <button onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}>
+              {sortOrder === 'asc' ? 'Ascending' : 'Descending'}
+            </button>
           </div>
         </div>
       </div>
+
+
 
       {/* Case Studies Grid */}
       <div className="case-studies-grid">
@@ -232,17 +236,23 @@ const CaseStudiesList = () => {
                 {study.shortList === 'Yes' && <span className="shortlist-tag">Short Listed</span>}
               </div>
               <div className="card-body">
-                <p><strong>Country:</strong> {study.country || 'N/A'}</p>
-                <p><strong>City:</strong> {study.location || 'N/A'}</p>
-                <p><strong>Total Area:</strong> {study['Total Area (km2)'] || 'N/A'} km²</p>
-                <p style={{ color: study.FinalStatus === 'Completed' ? 'green' : study.FinalStatus === 'In Progress' ? 'orange' : 'red' }}>
-                  <strong>Status:</strong> {study.FinalStatus || 'N/A'}
-                </p>
+                <ul className="details-list">
+                  <li><strong>Country:</strong> {study.country || 'N/A'}</li>
+                  <li><strong>City:</strong> {study.location || 'N/A'}</li>
+                  <li><strong>Total Area:</strong> {study['Total Area (km2)'] || 'N/A'} km²</li>
+                  <li>
+                    <strong>Status: </strong>
+                    <span style={{ color: study.FinalStatus === 'Completed' ? 'green' : study.FinalStatus === 'In Progress' ? 'orange' : 'red' }}>
+                      {study.FinalStatus || 'N/A'}
+                    </span>
+                  </li>
+                </ul>
               </div>
             </Link>
           </div>
         ))}
       </div>
+
 
       {/* Load More Indicator */}
       <div ref={loadMoreRef} style={{ height: '50px', marginTop: '20px' }}></div>

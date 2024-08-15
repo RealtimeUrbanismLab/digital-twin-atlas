@@ -2,7 +2,7 @@
 .hamburger-menu {
   position: fixed;
   top: 20px;
-  left: 20px; /* Align to the right */
+  left: 20px; /* Align to the left */
   z-index: 2000;
 }
 
@@ -21,13 +21,16 @@
 .line {
   width: 100%; /* Full width of the icon container */
   height: 3px; /* Thickness of the lines */
-  background-color: var(--primary-color); /* Ensure this color is visible */
+  background-color: var(--secondary-color); /* Secondary color for the lines */
   margin: 3px 0; /* Spacing between the lines */
   transition: all 0.3s ease;
 }
 
-.hamburger-icon:hover .line {
-  background-color: var(--secondary-color); /* Optional: change color on hover */
+.hamburger-icon:hover .line,
+.hamburger-nav a:hover,
+.hamburger-nav a:visited:hover {
+  background-color: var(--primary-color); /* Change to primary color on hover */
+  color: var(--primary-color); /* Change text color on hover */
 }
 
 .hamburger-menu.open .line:nth-child(1) {
@@ -61,23 +64,26 @@
   transform: translateX(0);
 }
 
-.hamburger-nav a {
-  color: var(--text-color);
+.menu a,
+.menu a:visited {
+  color: var(--secondary-color);
+  font-weight: bold;
   display: block;
-  padding: 10px 0;
   text-transform: uppercase;
   letter-spacing: 1px;
   transition: color 0.3s ease;
   text-decoration: none;
 }
 
-.hamburger-nav a:hover {
-  color: var(--secondary-color);
+.menu a:hover,
+.menu a:visited:hover {
+  color: var(--primary-color); /* Primary color for links on hover and visited */
 }
 
 .menu {
   padding-top: 10px;
 }
+
 .menu ul {
   list-style: none;
   padding: 0;
