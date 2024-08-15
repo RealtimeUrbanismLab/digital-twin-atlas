@@ -46,6 +46,16 @@ const CaseStudiesList = () => {
     setFilters({ ...filters, [name]: value });
   };
 
+  // Only access getComputedStyle in browser environment
+  let primaryColor, secondaryColor, accentColor1, accentColor2, accentColor3;
+  if (typeof window !== 'undefined') {
+    primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim();
+    secondaryColor = getComputedStyle(document.documentElement).getPropertyValue('--secondary-color').trim();
+    accentColor1 = getComputedStyle(document.documentElement).getPropertyValue('--accent-color-1').trim();
+    accentColor2 = getComputedStyle(document.documentElement).getPropertyValue('--accent-color-2').trim();
+    accentColor3 = getComputedStyle(document.documentElement).getPropertyValue('--accent-color-3').trim();
+  }
+
   const sortedCaseStudies = [...caseStudies]
     .filter(study =>
       (shortListFilter ? study.shortList === 'Yes' : true) &&
@@ -94,13 +104,6 @@ const CaseStudiesList = () => {
     };
   }, [sortedCaseStudies]);
 
-  // Fetching CSS variables using JavaScript
-  const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim();
-  const secondaryColor = getComputedStyle(document.documentElement).getPropertyValue('--secondary-color').trim();
-  const accentColor1 = getComputedStyle(document.documentElement).getPropertyValue('--accent-color-1').trim();
-  const accentColor2 = getComputedStyle(document.documentElement).getPropertyValue('--accent-color-2').trim();
-  const accentColor3 = getComputedStyle(document.documentElement).getPropertyValue('--accent-color-3').trim();
-
   // Data for Charts
   const countryData = {
     labels: [...new Set(caseStudies.map(study => study.country))],
@@ -110,8 +113,8 @@ const CaseStudiesList = () => {
         data: [...new Set(caseStudies.map(study => study.country))].map(country =>
           caseStudies.filter(study => study.country === country).length
         ),
-        backgroundColor: `${secondaryColor}B3`, // Secondary color with 70% opacity
-        borderColor: secondaryColor,
+        backgroundColor: secondaryColor ? `${secondaryColor}B3` : 'rgba(52, 152, 219, 0.7)', // Fallback color
+        borderColor: secondaryColor || 'rgba(52, 152, 219, 1)', // Fallback color
         borderWidth: 1,
       },
     ],
@@ -129,16 +132,16 @@ const CaseStudiesList = () => {
           caseStudies.filter(study => study.FinalStatus === 'Did Not Start').length,
         ],
         backgroundColor: [
-          `${accentColor1}B3`, // Accent color 1 with 70% opacity
-          `${primaryColor}B3`, // Primary color with 70% opacity
-          `${accentColor3}B3`, // Accent color 3 with 70% opacity
-          `${accentColor2}B3`, // Accent color 2 with 70% opacity
+          accentColor1 ? `${accentColor1}B3` : 'rgba(46, 204, 113, 0.7)', // Fallback color
+          primaryColor ? `${primaryColor}B3` : 'rgba(52, 152, 219, 0.7)', // Fallback color
+          accentColor3 ? `${accentColor3}B3` : 'rgba(231, 76, 60, 0.7)', // Fallback color
+          accentColor2 ? `${accentColor2}B3` : 'rgba(155, 89, 182, 0.7)', // Fallback color
         ],
         borderColor: [
-          accentColor1,
-          primaryColor,
-          accentColor3,
-          accentColor2,
+          accentColor1 || 'rgba(46, 204, 113, 1)', // Fallback color
+          primaryColor || 'rgba(52, 152, 219, 1)', // Fallback color
+          accentColor3 || 'rgba(231, 76, 60, 1)', // Fallback color
+          accentColor2 || 'rgba(155, 89, 182, 1)', // Fallback color
         ],
         borderWidth: 1,
       },
@@ -204,6 +207,7 @@ const CaseStudiesList = () => {
                 <span className="toggle-text">Short List Only</span>
               </label>
             </div>
+
             <div className="toggle-button">
               <button onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}>
                 {sortOrder === 'asc' ? 'Ascending' : 'Descending'}
