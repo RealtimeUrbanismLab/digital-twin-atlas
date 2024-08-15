@@ -19,8 +19,8 @@ const Map = ({ caseStudies }) => {
       const initializeMap = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/realtimelab/clznlra4y00a001qgan7xdk3p',
-        center: [0, 20],
-        zoom: 2,
+        center: [43.098681, 32.072086],
+        zoom: 3.5,
         bearing: 0,
         pitch: 0,
       });
@@ -80,24 +80,24 @@ const Map = ({ caseStudies }) => {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          backgroundColor: 'white',
-          padding: '20px',
-          borderRadius: '10px',
+          backgroundColor: 'var(--card-background-color)',
+          padding: 'var(--space-3)',
+          borderRadius: 'var(--border-radius)',
           boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
           zIndex: 10,
           maxWidth: '300px',
           textAlign: 'center',
-          color: '#333',
-          fontSize: '1rem',
-          lineHeight: '1.5'
+          color: 'var(--text-color)',
+          fontSize: 'var(--font-md)',
+          lineHeight: 'var(--line-height-normal)'
         }}>
-          <h2 style={{ fontSize: '1.5rem', marginBottom: '10px', color: '#444' }}>{selectedStudy.name}</h2>
-          <p style={{ marginBottom: '5px' }}><strong>Location:</strong> {selectedStudy.location}, {selectedStudy.country}</p>
-          <p style={{ marginBottom: '5px' }}><strong>Start Year:</strong> {selectedStudy['Start Year']}</p>
-          <p style={{ marginBottom: '5px' }}><strong>Creators:</strong> {selectedStudy.Creators}</p>
-          <p style={{ marginBottom: '15px' }}>
+          <h2 style={{ fontSize: '1.5rem', marginBottom: 'var(--space-2)', color: 'var(--heading-color)' }}>{selectedStudy.name}</h2>
+          <p style={{ marginBottom: 'var(--space-1)' }}><strong>Location:</strong> {selectedStudy.location}, {selectedStudy.country}</p>
+          <p style={{ marginBottom: 'var(--space-1)' }}><strong>Start Year:</strong> {selectedStudy['Start Year']}</p>
+          <p style={{ marginBottom: 'var(--space-1)' }}><strong>Creators:</strong> {selectedStudy.Creators}</p>
+          <p style={{ marginBottom: 'var(--space-3)' }}>
             <span className="fade-text">
-            <strong>Description:</strong> {truncateText(selectedStudy.Description, 50)}
+              <strong>Description:</strong> {truncateText(selectedStudy.Description, 50)}
               {selectedStudy.Description && selectedStudy.Description.length > 50 && (
                 <span style={{
                   position: 'absolute',
@@ -105,23 +105,23 @@ const Map = ({ caseStudies }) => {
                   bottom: 0,
                   width: '2em',
                   height: '1.2em',
-                  background: 'linear-gradient(to right, rgba(255, 255, 255, 0) 0%, white 100%)'
+                  background: 'linear-gradient(to right, rgba(255, 255, 255, 0) 0%, var(--card-background-color) 100%)'
                 }}></span>
               )}
             </span>
           </p>
           <Link to={`/case-studies/${selectedStudy.id}`} style={{
             display: 'inline-block',
-            marginBottom: '15px',
-            padding: '10px 20px',
-            backgroundColor: '#007acc',
-            color: 'white',
-            borderRadius: '5px',
+            marginBottom: 'var(--space-3)',
+            padding: 'var(--space-2) var(--space-3)',
+            backgroundColor: 'var(--button-background-color)',
+            color: 'var(--button-text-color)',
+            borderRadius: 'var(--border-radius)',
             textDecoration: 'none',
             transition: 'background-color 0.3s ease',
           }}
-          onMouseEnter={(e) => e.target.style.backgroundColor = '#005fa3'}
-          onMouseLeave={(e) => e.target.style.backgroundColor = '#007acc'}
+          onMouseEnter={(e) => e.target.style.backgroundColor = 'var(--button-hover-background-color)'}
+          onMouseLeave={(e) => e.target.style.backgroundColor = 'var(--button-background-color)'}
           >Learn more</Link>
           <button onClick={closePopup} style={{
             position: 'absolute',
@@ -131,7 +131,7 @@ const Map = ({ caseStudies }) => {
             border: 'none',
             fontSize: '1.5rem',
             cursor: 'pointer',
-            color: '#888',
+            color: 'var(--text-color)',
           }}>✖</button>
         </div>
       )}
