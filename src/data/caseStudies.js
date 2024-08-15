@@ -1184,7 +1184,40 @@ const caseStudies = [
 ];
 
 
-// // Mapping function for the status
+// To effectively categorize the status of each case study, we can create a consistent set of categories that reflect the lifecycle stages of these projects. Here's a proposed categorization scheme:
+
+// Completed - Projects that have been fully implemented and are currently in operation or have met their objectives.
+
+// In Progress - Projects that have started and are ongoing, including those that may not yet be fully operational.
+
+// Failed - Projects that started but were not completed successfully, either due to abandonment, failure to meet objectives, or other reasons.
+
+// Did Not Start - Projects that were proposed but never commenced.
+
+// Mapping Existing Status/State Values to the New Categories
+// Let's map the existing Status and Project State values to these four categories:
+
+// Completed
+
+// Implemented
+// Completed
+// In Progress
+
+// In Progress
+// Implementing
+// Ongoing
+// Proposal (if it's active and being developed)
+// Failed
+
+// Started - Failed (If there's evidence that the project started but failed)
+// Did Not Start
+
+// Did Not Start
+// Proposed (if it never moved beyond the proposal stage)
+// Here's how you can implement this in your JavaScript code to merge Status and Project State into a single, standardized Final Status:
+
+// 
+// Mapping function for the status
 // const mapStatus = (status, projectState) => {
 //   const state = status || projectState; // Prefer 'Status' over 'Project State'
   

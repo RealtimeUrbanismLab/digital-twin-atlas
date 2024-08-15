@@ -21,6 +21,7 @@ const HamburgerMenu = () => {
           <ul>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/case-studies-list">Case Studies</Link></li>
+            <li><Link to="/case-studies-list-v2">Case Studies v2</Link></li>
             <li><Link to="/ethical-checklist">Ethical Checklist</Link></li>
             <li><Link to="/about">About</Link></li> {/* Updated About link */}
           </ul>

@@ -214,6 +214,14 @@ const CaseStudiesList = () => {
       {/* Charts Section */}
       <div className="charts">
 
+        {/* New container for the map */}
+        <div className="chart-wrapper">
+          <h3 className="chart-title">Map</h3>
+          <div className="map-container"> 
+            <Map caseStudies={caseStudies} />
+          </div>
+        </div>
+
         <div className="chart-wrapper">
           <h3 className="chart-title">Project Status Distribution</h3>
           <div className="chart-container">
