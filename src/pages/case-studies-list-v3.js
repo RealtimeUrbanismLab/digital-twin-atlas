@@ -45,13 +45,26 @@ const CaseStudiesList = () => {
     startYear: '',
     endYear: ''
   });
+  const [selectedStudyId, setSelectedStudyId] = useState(null);
   const loadMoreRef = useRef();
   const mapContainerRef = useRef(null);
   const mapRef = useRef(null);
+  const markersRef = useRef([]);
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     setFilters({ ...filters, [name]: value });
+  };
+
+  const clearFilters = () => {
+    setFilters({
+      country: '',
+      status: '',
+      startYear: '',
+      endYear: ''
+    });
+    setSearchQuery('');
+    setShortListFilter(false);
   };
 
   // Initialize Mapbox map
@@ -60,67 +73,46 @@ const CaseStudiesList = () => {
       mapRef.current = new MapboxGL.Map({
         container: mapContainerRef.current,
         style: 'mapbox://styles/mapbox/streets-v11',
-        center: [0, 0],
-        zoom: 2,
-      });
-
-      mapRef.current.on('load', () => {
-        updateMapMarkers();
+        center: [0, 0], // Default center
+        zoom: 2, // Default zoom level
       });
     }
   }, []);
 
-  const updateMapMarkers = () => {
-    if (mapRef.current && mapRef.current.isStyleLoaded() && visibleCaseStudies > 0) {
-      // Remove existing markers from the map
-      const layers = mapRef.current.getStyle().layers;
-      if (layers) {
-        layers.forEach((layer) => {
-          if (layer.id.startsWith('marker-')) {
-            if (mapRef.current.getLayer(layer.id)) {
-              mapRef.current.removeLayer(layer.id);
-            }
-            if (mapRef.current.getSource(layer.id)) {
-              mapRef.current.removeSource(layer.id);
-            }
-          }
-        });
-      }
+  const updateMapMarkers = (studies) => {
+    if (mapRef.current) {
+      // Remove existing markers
+      markersRef.current.forEach(marker => marker.remove());
+      markersRef.current = [];
 
       const bounds = new MapboxGL.LngLatBounds();
-      const visibleStudies = caseStudies.slice(0, visibleCaseStudies);
 
-      visibleStudies.forEach((study) => {
+      studies.forEach((study) => {
         if (study.lat && study.lng) {
-          const markerId = `marker-${study.id}`;
-
-          new MapboxGL.Marker()
+          const marker = new MapboxGL.Marker()
             .setLngLat([study.lng, study.lat])
             .setPopup(new MapboxGL.Popup({ offset: 25 }).setText(study.name))
             .addTo(mapRef.current);
 
+          marker.getElement().addEventListener('click', () => {
+            setSelectedStudyId(study.id);
+          });
+
+          markersRef.current.push(marker);
           bounds.extend([study.lng, study.lat]);
         }
       });
 
-      if (!bounds.isEmpty()) {
+      if (studies.length > 0 && !bounds.isEmpty()) {
         mapRef.current.fitBounds(bounds, { padding: 50 });
+      } else {
+        mapRef.current.setCenter([0, 0]);
+        mapRef.current.setZoom(2);
       }
     }
   };
 
-  // Update map markers when the visible case studies change
-  useEffect(() => {
-    if (mapRef.current) {
-      if (mapRef.current.isStyleLoaded()) {
-        updateMapMarkers();
-      } else {
-        mapRef.current.on('style.load', updateMapMarkers);
-      }
-    }
-  }, [visibleCaseStudies]);
-
-  const sortedCaseStudies = [...caseStudies]
+  const filteredCaseStudies = [...caseStudies]
     .filter(study =>
       (shortListFilter ? study.shortList === 'Yes' : true) &&
       (searchQuery === '' || study.name.toLowerCase().includes(searchQuery.toLowerCase())) &&
@@ -149,13 +141,17 @@ const CaseStudiesList = () => {
       }
     });
 
-  const paginatedCaseStudies = sortedCaseStudies.slice(0, visibleCaseStudies);
+  const paginatedCaseStudies = filteredCaseStudies.slice(0, visibleCaseStudies);
+
+  useEffect(() => {
+    updateMapMarkers(filteredCaseStudies.slice(0, visibleCaseStudies));
+  }, [filters, searchQuery, shortListFilter, sortOrder, sortOption, visibleCaseStudies]);
 
   // Load more items when scrolling reaches the bottom
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        setVisibleCaseStudies((prev) => Math.min(prev + itemsPerPage, sortedCaseStudies.length));
+        setVisibleCaseStudies((prev) => Math.min(prev + itemsPerPage, filteredCaseStudies.length));
       }
     });
 
@@ -168,7 +164,7 @@ const CaseStudiesList = () => {
         observer.unobserve(loadMoreRef.current);
       }
     };
-  }, [sortedCaseStudies]);
+  }, [filteredCaseStudies]);
 
   // Data for Charts
   const countryData = {
@@ -213,6 +209,29 @@ const CaseStudiesList = () => {
       },
     ],
   };
+
+  const CaseStudyOverlay = ({ study, onClose }) => (
+    <div className="overlay">
+      <div className="overlay-content">
+        <button className="close-button" onClick={onClose}>Close</button>
+        <h3>{study.name}</h3>
+        <img src={study.imagePath || defaultImage} alt={study.name} className="duotone img" />
+        <ul className="details-list">
+          <li><strong>Country:</strong> {study.country || 'N/A'}</li>
+          <li><strong>City:</strong> {study.location || 'N/A'}</li>
+          <li><strong>Creators:</strong> {study['Creators'] || 'N/A'}</li>
+          <li><strong>Total Area:</strong> {study['Total Area (km2)'] || 'N/A'} km²</li>
+          <li><strong>Platform/Organization:</strong> {study['Platform/Organization'] || 'N/A'}</li>
+          <li><strong>System Digital Twinned:</strong> {study['System Digital Twinned'] || 'N/A'}</li>
+          <li><strong>3D Platform Features:</strong> {study['3D Platform Features'] || 'N/A'}</li>
+          <li><span style={{ color: study.FinalStatus === 'Completed' ? 'green' : study.FinalStatus === 'In Progress' ? 'orange' : 'red' }}>
+            <strong>Status: </strong>{study.FinalStatus || 'N/A'}
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
 
   return (
     <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
@@ -264,6 +283,7 @@ const CaseStudiesList = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
+          <button onClick={clearFilters} className="clear-filters-button">Clear Filters</button>
         </div>
 
         <div className="sort-toggle-group">
@@ -308,38 +328,47 @@ const CaseStudiesList = () => {
 
       <div className="case-studies-grid">
         {paginatedCaseStudies.map((study) => (
-          <div className="card case-study-card" key={study.id}>
-            <Link to={`/case-studies/${study.id}`}>
-              <h3 className="card-title">{study.name}</h3>
-              <div className="image-container">
-                <img
-                  src={study.imagePath || defaultImage}
-                  alt={study.name}
-                  className="duotone img"
-                />
-                {study.shortList === 'Yes' && <span className="shortlist-tag">Short Listed</span>}
-              </div>
-              <div className="card-body">
-                <ul className="details-list">
-                  <li><strong>Country:</strong> {study.country || 'N/A'}</li>
-                  <li><strong>City:</strong> {study.location || 'N/A'}</li>
-                  <li><strong>Creators:</strong> {study['Creators'] || 'N/A'}</li>
-                  <li><strong>Total Area:</strong> {study['Total Area (km2)'] || 'N/A'} km²</li>
-                  <li><strong>Platform/Organization:</strong> {study['Platform/Organization'] || 'N/A'}</li>
-                  <li><strong>System Digital Twinned:</strong> {study['System Digital Twinned'] || 'N/A'}</li>
-                  <li><strong>3D Platform Features:</strong> {study['3D Platform Features'] || 'N/A'}</li>
-                  <li><span style={{ color: study.FinalStatus === 'Completed' ? 'green' : study.FinalStatus === 'In Progress' ? 'orange' : 'red' }}>
-                    <strong>Status: </strong>{study.FinalStatus || 'N/A'}
-                    </span>
-                  </li>
-                </ul>
-              </div>
-            </Link>
+          <div
+            className={`card case-study-card ${study.id === selectedStudyId ? 'selected' : ''}`}
+            key={study.id}
+            onClick={() => setSelectedStudyId(study.id)}
+          >
+            <h3 className="card-title">{study.name}</h3>
+            <div className="image-container">
+              <img
+                src={study.imagePath || defaultImage}
+                alt={study.name}
+                className="duotone img"
+              />
+              {study.shortList === 'Yes' && <span className="shortlist-tag">Short Listed</span>}
+            </div>
+            <div className="card-body">
+              <ul className="details-list">
+                <li><strong>Country:</strong> {study.country || 'N/A'}</li>
+                <li><strong>City:</strong> {study.location || 'N/A'}</li>
+                <li><strong>Creators:</strong> {study['Creators'] || 'N/A'}</li>
+                <li><strong>Total Area:</strong> {study['Total Area (km2)'] || 'N/A'} km²</li>
+                <li><strong>Platform/Organization:</strong> {study['Platform/Organization'] || 'N/A'}</li>
+                <li><strong>System Digital Twinned:</strong> {study['System Digital Twinned'] || 'N/A'}</li>
+                <li><strong>3D Platform Features:</strong> {study['3D Platform Features'] || 'N/A'}</li>
+                <li><span style={{ color: study.FinalStatus === 'Completed' ? 'green' : study.FinalStatus === 'In Progress' ? 'orange' : 'red' }}>
+                  <strong>Status: </strong>{study.FinalStatus || 'N/A'}
+                  </span>
+                </li>
+              </ul>
+            </div>
           </div>
         ))}
       </div>
 
       <div ref={loadMoreRef} style={{ height: '50px', marginTop: '20px' }}></div>
+
+      {selectedStudyId && (
+        <CaseStudyOverlay
+          study={caseStudies.find(study => study.id === selectedStudyId)}
+          onClose={() => setSelectedStudyId(null)}
+        />
+      )}
     </div>
   );
 };
