@@ -331,8 +331,8 @@ input:checked + .slider:before {
 .controls-overlay {
   position: absolute;
   top: 20px;
-  left: 20px;
-  right: 20px;
+  left: 50%; /* Align the left edge of the overlay with the center of the screen */
+  transform: translateX(-50%); /* Shift the overlay left by 50% of its own width to truly center it */
   z-index: 1000;
   background-color: rgba(255, 255, 255, 0.9);
   padding: 10px;
@@ -340,9 +340,12 @@ input:checked + .slider:before {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 100%;
+  max-width: 100%; /* Ensures responsiveness on smaller screens */
+  width: 100%; /* Make the overlay take full width of its container */
+  max-width: 1400px; /* Set the maximum width to 1400px */
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
 }
+
 
 .controls-overlay .toggle-switch, 
 .controls-overlay .clear-filters-button {
