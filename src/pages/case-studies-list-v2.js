@@ -217,7 +217,7 @@ const CaseStudiesList = () => {
         {/* New container for the map */}
         <div className="chart-wrapper">
           <h3 className="chart-title">Map</h3>
-          <div className="map-container"> 
+          <div className="map-container1"> 
             <Map caseStudies={caseStudies} />
           </div>
         </div>

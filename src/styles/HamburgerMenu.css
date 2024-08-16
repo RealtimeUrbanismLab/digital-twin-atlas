@@ -3,7 +3,7 @@
   position: fixed;
   top: 20px;
   left: 20px; /* Align to the left */
-  z-index: 2000;
+  z-index: 1000;
 }
 
 .hamburger-icon {

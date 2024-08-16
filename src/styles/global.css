@@ -159,6 +159,14 @@ button:hover {
   flex-wrap: wrap;
 }
 
+.filters-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: nowrap;
+  align-items: center;
+  max-width: 70%;
+}
+
 /* Grouping the sort and toggle controls to align them to the right */
 .sort-toggle-group {
   display: flex;
@@ -293,37 +301,125 @@ input:checked + .slider:before {
   margin-bottom: 0; /* Remove the bottom margin for the last item */
 }
 
+/* Full-Screen Map Container */
+.map-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  width: 100vw;
+}
+
+.map-container-fullscreen {
+  height: 100vh;
+  width: 100vw;
+}
+
+/* Overlays */
+.hamburger-overlay, .controls-overlay {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.controls-overlay {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 100%;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
+}
+
+.controls-overlay .toggle-switch, 
+.controls-overlay .clear-filters-button {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filter-controls select,
+.filter-controls input[type="text"],
+.filter-controls button {
+  min-width: 150px;
+  padding: 5px 10px;
+  font-size: 14px;
+}
+
+.clear-filters-button {
+  padding: 10px 15px;
+  font-size: 14px;
+}
+
+/* Overlay Scrollable Content */
 .overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 10000;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 2000;
+  overflow-y: auto;
 }
 
 .overlay-content {
-  background: var(--card-background-color);
-  padding: var(--space-4);
-  border-radius: var(--border-radius);
-  width: 80%;
+  background-color: #fff;
+  margin: 50px auto;
+  padding: 20px;
   max-width: 800px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
 }
 
 .close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
+  background-color: red;
+  color: #fff;
   border: none;
-  color: var(--text-color);
-  font-size: 1.5rem;
+  padding: 10px 20px;
   cursor: pointer;
+  border-radius: 4px;
+}
+
+/* Popups */
+.mapboxgl-popup {
+  max-width: 300px;
+}
+
+.mapboxgl-popup-content {
+  text-align: center;
+}
+
+.learn-more-button {
+  background-color: var(--secondary-color);
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.clear-filters-button {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-left: 10px;
 }
 
 
@@ -394,10 +490,15 @@ img {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.map-container {
+.map-container1 {
   width: 100%; /* Full width within its parent */
   height: 400px; /* Set a fixed height or adjust as needed */
   position: relative; /* Ensure the map inside is positioned correctly */
+}
+
+.map-container1 #map {
+  width: 100%; /* Full width within the container */
+  height: 100%; /* Full height within the container */
 }
 
 .map-container #map {

@@ -322,7 +322,7 @@ const CaseStudiesList = () => {
         </div>
       </div>
 
-      <div className="map-container">
+      <div className="map-container1">
         <div id="map" ref={mapContainerRef}></div>
       </div>
 
